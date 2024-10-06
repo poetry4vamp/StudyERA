@@ -1,0 +1,54 @@
+
+{% extends 'dashboard/login.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content  %}
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="{% url 'homepage' %}"><span class="text-secondary">STUDY</span>ERA</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+						<a class="nav-link" href="{% url 'login' %}">Signin</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+    <!--Signup form-->
+    <!-- Main Container -->
+    <div class="container d-flex justify-content-center align-items-center min-vh-100 pt-5 mt-5 mb-5">
+      <!-- Login Container-->
+         <div class="row border rounded-5 p-3 bg-white shadow box-login">
+      <!--Left Box -->
+         <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #fff;">
+             <div class="featured-image mb-3">
+              <img src="https://cdn.dribbble.com/users/3960415/screenshots/8995365/media/b0b5dddc53e15f8eb666502c9c3cb5d4.gif" class="img-fluid" style="width: 350px;">
+             </div>
+             <p class="text-dark fs-2" style="font-weight: 600;">Mag aral ka teh</p>
+             <small class="text-dark text-wrap text-center" style="width: 17rem;">Sumali ka na sa STUDYERA para magaral, babagsak ka sa finals nyan.</small>
+         </div> 
+      <!-- Right Box -->
+      <div class="col-md-6 right-box">
+            <div class="row align-items-center">
+                  <div class="header-text mb-4">
+                       <h2>Hello, studyante</h2>
+                       <p>Sali ka na sa STUDYERA.</p>
+                  </div>
+                  <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="d-grid gap-2 col-8 mx-auto input-field text-center pt-4">
+                      <button type="submit" class="btn btn-dark">Signup</button>
+                  </div>
+                  <div class="pt-4 text-center">
+                      <span>Already a user? <a class="link-dark" href="{% url 'login' %}">Login</a></span>
+                  </div>
+                  </form>
+            </div>
+         </div> 
+        </div>
+      </div>
+{% endblock content %}

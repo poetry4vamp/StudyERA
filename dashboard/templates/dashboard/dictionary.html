@@ -1,0 +1,61 @@
+{% extends 'dashboard/books.html' %}
+{% load static %}
+{% block content %}
+    <!-- NAVIGATION BAR, LAHAT NG LINKS -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="{% url 'home' %}"><span class="text-secondary">STUDY</span>ERA</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'home' %}">Home</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="{% url 'profile' %}">Profile</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="{% url 'homepage' %}">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+    <!-- dictionary starts here -->
+    <section class='text-center container' style="padding: 10%;">
+        <h2>Student Dictionary</h2>
+        <p>Enter any word to get the phonetics, definition and an example for the word.</p>
+        <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+            <input class="btn btn-dark" type="submit" value="Submit">
+        </form><br>
+        <div class="content-section p-0 mt-5">
+            {% if input %}
+            <div class="custom-header">
+                <h2>{{input}}</h2>
+                <h6>{{ phonetics }}</h6>
+                <audio id="player" src="{{ audio }}"></audio>
+                <div>
+                    <a onclick="document.getElementById('player').play()"><i class="bi bi-volume-up-fill"></i></a>
+                </div>
+            </div>
+    
+            <hr class="p-0 m-0">
+    
+            <p class="float-left">
+                <h6>Definition: {{ definition }}</h6>
+                <h6>Example: {{ example }}</h6>
+            </p>
+            Synonyms:
+            {% for synonym in synonyms %}
+                {{ synonym }}
+            {% endfor %}
+            <hr>
+        </div>
+        {% else %}
+        <h5>Sorry, API request limit exceeded</h5>
+        {% endif %}
+    </section>
+
+    {% endblock content %}

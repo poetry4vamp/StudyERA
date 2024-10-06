@@ -1,0 +1,54 @@
+{% extends 'dashboard/books.html' %}
+{% load static %}
+{% block content %}
+    <!-- NAVIGATION BAR, LAHAT NG LINKS -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="{% url 'home' %}"><span class="text-secondary">STUDY</span>ERA</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'home' %}">Home</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="{% url 'profile' %}">Profile</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="{% url 'homepage' %}">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+    <!-- wikipedia starts here -->
+    <section class='text-center container' style="padding: 10%;">
+        <h2>Search articles in Wikipedia</h2>
+        <p>just enter the search query to obtain the results</p>
+        <b>Enter without any space</b>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input class="btn btn-dark" type="submit" value="Submit">
+        </form><br>
+    
+        <div class="container">
+            <div class="content-section p-0 mt-5">
+                <a href="" class="p-0 m-0 link-dark" target="_blank">
+                    <div class="custom-header">
+                        <h2>{{title}}</h2>{{ title }}
+                        <h6>{{link}}</h6>
+                    </div>
+                </a>
+    
+                <hr class="p-0 m-0">
+                <p class="description m-5 p-5">
+                    {{details}}
+                </p>
+                <hr>
+            </div>
+        </div>
+    
+    </section>
+
+    {% endblock content %}

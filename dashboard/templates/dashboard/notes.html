@@ -1,0 +1,82 @@
+{% extends 'dashboard/home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<!-- NAVIGATION BAR, LAHAT NG LINKS -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}"><span class="text-secondary">STUDY</span>ERA</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'homepage' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Dito yung nagpopopup yung notes nila based don sa yt -->
+<section style="padding: 5%">
+
+{% if message %}
+    {% for msg in messages %}
+        <div class="alert alert-{{msg.tags}}">{{msg}}</div>
+    {% endfor %}
+{% endif %}
+
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            {% for note in notes %}
+            <tbody>
+              <tr>
+                <td scope="col">{{note.title}}</td>
+                <td scope="col">{{note.description|slice:"0:100"}}</td>
+                <td scope="col"><a class="link-secondary" href="{% url 'delete-note' note.id %}">
+                    <i class="bi bi-trash-fill"></i></a></td>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+    </div>
+</section>
+
+<!-- Notes starts -->
+<section class="services section-padding" id="services">
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="mb-4 text-center"><strong>Create Notes</strong></legend>
+            </fieldset>
+            {{form|crispy}}
+            <br><div class="form-group">
+                <button href="" class="btn btn-dark text-center" type="submit">
+                    Create
+                </button>
+            </div>      
+        </form>
+        <div class="row m-0">
+            <div class="col-md-12 p-0 pt-4 pb-4">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}
